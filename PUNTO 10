@@ -1,0 +1,53 @@
+String color;
+
+int rojo = 2;
+int verde = 3;
+int azul = 4;
+
+void setup() {
+
+  pinMode(rojo, OUTPUT);
+  pinMode(verde, OUTPUT);
+  pinMode(azul, OUTPUT);
+
+  Serial.begin(9600);
+
+  Serial.println("Escriba un color: rojo, verde o azul");
+
+}
+
+void loop() {
+
+  if(Serial.available() > 0) {
+
+    color = Serial.readStringUntil('\n');
+
+    color.trim();
+
+    // Apagar todos los LEDs
+    digitalWrite(rojo, LOW);
+    digitalWrite(verde, LOW);
+    digitalWrite(azul, LOW);
+
+    // Encender según el color
+    if(color == "rojo") {
+
+      digitalWrite(rojo, HIGH);
+
+    }
+
+    else if(color == "verde") {
+
+      digitalWrite(verde, HIGH);
+
+    }
+
+    else if(color == "azul") {
+
+      digitalWrite(azul, HIGH);
+
+    }
+
+  }
+
+}

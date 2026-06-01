@@ -1,0 +1,30 @@
+int potenciometro = A0;
+int lectura = 0;
+float voltaje = 0;
+
+void setup() {
+
+  Serial.begin(9600);
+
+}
+
+void loop() {
+
+  // Lectura del valor analógico
+  lectura = analogRead(potenciometro);
+
+  // Conversión a voltaje
+  voltaje = lectura * (5.0 / 1023.0);
+
+  // Mostrar datos en monitor serial
+  Serial.print("Valor en bits: ");
+  Serial.print(lectura);
+
+  Serial.print("   Voltaje: ");
+  Serial.print(voltaje);
+
+  Serial.println(" V");
+
+  delay(500);
+
+}

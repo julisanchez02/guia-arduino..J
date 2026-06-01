@@ -1,0 +1,89 @@
+int trig = 9;
+int echo = 10;
+
+// Motor A
+int IN1 = 2;
+int IN2 = 3;
+
+// Motor B
+int IN3 = 4;
+int IN4 = 5;
+
+long tiempo;
+float distancia;
+
+void setup() {
+
+  pinMode(trig, OUTPUT);
+  pinMode(echo, INPUT);
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+
+  Serial.begin(9600);
+
+}
+
+void loop() {
+
+  // Generar pulso ultrasónico
+  digitalWrite(trig, LOW);
+  delayMicroseconds(2);
+
+  digitalWrite(trig, HIGH);
+  delayMicroseconds(10);
+
+  digitalWrite(trig, LOW);
+
+  // Leer tiempo
+  tiempo = pulseIn(echo, HIGH);
+
+  // Calcular distancia
+  distancia = (tiempo * 0.034) / 2;
+
+  Serial.print("Distancia: ");
+  Serial.println(distancia);
+
+  // Si detecta obstáculo o guía
+  if(distancia > 0 && distancia < 30) {
+
+    avanzar();
+
+  }
+
+  // Si no encuentra referencia
+  else {
+
+    girar();
+
+  }
+
+  delay(100);
+
+}
+// Función avanzar
+void avanzar() {
+
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+
+}
+
+// Función giro suave
+void girar() {
+
+  // Motor izquierdo adelante
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+
+  // Motor derecho detenido
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+
+}
+

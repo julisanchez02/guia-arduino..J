@@ -1,0 +1,27 @@
+int sensor = A0;
+int lectura = 0;
+float voltaje = 0;
+
+void setup() {
+
+  Serial.begin(9600);
+
+}
+
+void loop() {
+  lectura = analogRead(sensor);
+
+  // Conversión de bits a voltaje
+  voltaje = lectura * (5.0 / 1023.0);
+
+  Serial.print("Valor digital: ");
+  Serial.print(lectura);
+
+  Serial.print("   Voltaje: ");
+  Serial.print(voltaje);
+
+  Serial.println(" V");
+
+  delay(500);
+
+} 

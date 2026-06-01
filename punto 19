@@ -1,0 +1,61 @@
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+void setup() {
+
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+
+  display.clearDisplay();
+
+  // Texto superior
+  display.setTextSize(1);
+  display.setTextColor(WHITE);
+
+  display.setCursor(0,0);
+  display.println("Centro de Diseno");
+  
+  display.setCursor(0,10);
+  display.println("y Metrologia");
+
+  // Logo sencillo tipo SENA
+  display.drawCircle(64, 38, 8, WHITE);
+
+  display.drawLine(64, 46, 64, 56, WHITE);
+
+  display.drawLine(64, 48, 54, 58, WHITE);
+
+  display.drawLine(64, 48, 74, 58, WHITE);
+
+  display.drawLine(64, 56, 58, 63, WHITE);
+
+  display.drawLine(64, 56, 70, 63, WHITE);
+
+  display.display();
+
+}
+
+void loop() {
+
+}
+// Mostrar logo en la parte superior
+display.drawBitmap(0, 0, senaLogo, 24, 24, SSD1306_WHITE);
+
+// Mostrar texto debajo del logo
+display.setTextSize(1);
+display.setTextColor(SSD1306_WHITE);
+display.setCursor(0, 30);
+display.println(F("Centro de Diseño"));
+display.setCursor(0, 40);
+display.println(F("y Metrologia"));
+display.display();
+}
+
+void loop() {
+// No hay actualización continua requerida
+}

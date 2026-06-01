@@ -1,0 +1,30 @@
+int redPin = 9; // PWM rojo
+int greenPin = 10; // PWM verde
+int bluePin = 11; // PWM azul
+
+int potR = A0; // Potenciómetro rojo
+int potG = A1; // Potenciómetro verde
+int potB = A2; // Potenciómetro azul
+
+void setup() {
+pinMode(redPin, OUTPUT);
+pinMode(greenPin, OUTPUT);
+pinMode(bluePin, OUTPUT);
+Serial.begin(9600);
+}
+
+void loop() {
+int valR = analogRead(potR)/4; // Convertir 0-1023 a 0-255
+int valG = analogRead(potG)/4;
+int valB = analogRead(potB)/4;
+
+analogWrite(redPin, valR);
+analogWrite(greenPin, valG);
+analogWrite(bluePin, valB);
+
+Serial.print("R:"); Serial.print(valR);
+Serial.print(" G:"); Serial.print(valG);
+Serial.print(" B:"); Serial.println(valB);
+
+delay(200);
+}

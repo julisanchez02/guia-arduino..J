@@ -1,0 +1,86 @@
+char dato;
+
+// Motor A
+int IN1 = 2;
+int IN2 = 3;
+
+// Motor B
+int IN3 = 4;
+int IN4 = 5;
+
+// LED pin 13
+int led = 13;
+
+void setup() {
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+
+  pinMode(led, OUTPUT);
+
+  Serial.begin(9600);
+
+}
+
+void loop() {
+
+  if(Serial.available()) {
+
+    dato = Serial.read();
+
+    // Encender indicador
+    digitalWrite(led, HIGH);
+
+    // Avanzar
+    if(dato == 'F') {
+
+      digitalWrite(IN1, HIGH);
+      digitalWrite(IN2, LOW);
+
+      digitalWrite(IN3, HIGH);
+      digitalWrite(IN4, LOW);
+
+    }
+
+    // Detener
+    else if(dato == 'S') {
+
+      digitalWrite(IN1, LOW);
+      digitalWrite(IN2, LOW);
+
+      digitalWrite(IN3, LOW);
+      digitalWrite(IN4, LOW);
+
+      digitalWrite(led, LOW);
+
+    }
+
+    // Giro izquierda
+    else if(dato == 'L') {
+
+      digitalWrite(IN1, LOW);
+      digitalWrite(IN2, LOW);
+
+      digitalWrite(IN3, HIGH);
+      digitalWrite(IN4, LOW);
+
+    }
+
+    // Giro derecha
+    else if(dato == 'R') {
+
+      digitalWrite(IN1, HIGH);
+      digitalWrite(IN2, LOW);
+
+      digitalWrite(IN3, LOW);
+      digitalWrite(IN4, LOW);
+
+    }
+
+  }
+
+}
+

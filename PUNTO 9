@@ -1,0 +1,37 @@
+int inicio = 2;
+int fin = 8;
+
+void setup() {
+
+  // Configurar pines como salida
+  for(int i = inicio; i <= fin; i++) {
+
+    pinMode(i, OUTPUT);
+
+  }
+
+}
+
+void loop() {
+
+  // Secuencia izquierda a derecha
+  for(int i = inicio; i <= fin; i++) {
+
+    digitalWrite(i, HIGH);
+    delay(200);
+
+    digitalWrite(i, LOW);
+
+  }
+
+  // Secuencia derecha a izquierda
+  for(int i = fin; i >= inicio; i--) {
+
+    digitalWrite(i, HIGH);
+    delay(200);
+
+    digitalWrite(i, LOW);
+
+  }
+
+}

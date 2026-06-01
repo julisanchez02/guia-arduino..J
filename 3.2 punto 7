@@ -1,0 +1,183 @@
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+char dato;
+
+// Motores
+int IN1 = 2;
+int IN2 = 3;
+int IN3 = 4;
+int IN4 = 5;
+
+void setup() {
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+
+  Serial.begin(9600);
+
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+
+  pantallaReposo();
+
+}
+
+void loop() {
+
+  if(Serial.available()) {
+
+    dato = Serial.read();
+
+    // AVANZAR
+    if(dato == 'F') {
+
+      digitalWrite(IN1, HIGH);
+      digitalWrite(IN2, LOW);
+
+      digitalWrite(IN3, HIGH);
+      digitalWrite(IN4, LOW);
+
+      caraFeliz();
+
+    }
+
+    // RETROCEDER
+    else if(dato == 'B') {
+
+      digitalWrite(IN1, LOW);
+      digitalWrite(IN2, HIGH);
+
+      digitalWrite(IN3, LOW);
+      digitalWrite(IN4, HIGH);
+
+      caraAsustada();
+
+    }
+
+    // IZQUIERDA
+    else if(dato == 'L') {
+
+      digitalWrite(IN1, LOW);
+      digitalWrite(IN2, LOW);
+
+      digitalWrite(IN3, HIGH);
+      digitalWrite(IN4, LOW);
+
+      caraIzquierda();
+
+    }
+
+    // DERECHA
+    else if(dato == 'R') {
+
+      digitalWrite(IN1, HIGH);
+      digitalWrite(IN2, LOW);
+
+      digitalWrite(IN3, LOW);
+      digitalWrite(IN4, LOW);
+
+      caraDerecha();
+
+    }
+
+    // DETENER
+    else if(dato == 'S') {
+
+      digitalWrite(IN1, LOW);
+      digitalWrite(IN2, LOW);
+
+      digitalWrite(IN3, LOW);
+      digitalWrite(IN4, LOW);
+
+      pantallaReposo();
+
+    }
+
+  }
+
+}
+
+// ====================
+// FUNCIONES OLED
+// ====================
+
+void pantallaReposo() {
+
+  display.clearDisplay();
+
+  display.drawCircle(40, 25, 8, WHITE);
+  display.drawCircle(88, 25, 8, WHITE);
+
+  display.drawLine(45, 48, 83, 48, WHITE);
+
+  display.display();
+
+}
+
+void caraFeliz() {
+
+  display.clearDisplay();
+
+  display.drawCircle(40, 25, 8, WHITE);
+  display.drawCircle(88, 25, 8, WHITE);
+
+  display.drawCircle(40, 25, 2, WHITE);
+  display.drawCircle(88, 25, 2, WHITE);
+
+  display.drawLine(45, 45, 64, 55, WHITE);
+  display.drawLine(64, 55, 83, 45, WHITE);
+
+  display.display();
+
+}
+
+void caraAsustada() {
+
+  display.clearDisplay();
+
+  display.drawCircle(40, 25, 8, WHITE);
+  display.drawCircle(88, 25, 8, WHITE);
+
+  display.drawCircle(40, 25, 3, WHITE);
+  display.drawCircle(88, 25, 3, WHITE);
+
+  display.drawCircle(64, 50, 8, WHITE);
+
+  display.display();
+
+}
+
+void caraIzquierda() {
+
+  display.clearDisplay();
+
+  display.drawCircle(35, 25, 8, WHITE);
+  display.drawCircle(83, 25, 8, WHITE);
+
+  display.drawLine(45, 50, 83, 45, WHITE);
+
+  display.display();
+
+}
+
+void caraDerecha() {
+
+  display.clearDisplay();
+
+  display.drawCircle(45, 25, 8, WHITE);
+  display.drawCircle(93, 25, 8, WHITE);
+
+  display.drawLine(45, 45, 83, 50, WHITE);
+
+  display.display();
+
+}

@@ -1,0 +1,77 @@
+: #include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+int pir = 2;
+int rele = 8;
+
+bool movimientoAnterior = LOW;
+
+void setup() {
+
+  pinMode(pir, INPUT);
+  pinMode(rele, OUTPUT);
+
+  digitalWrite(rele, LOW);
+
+  display.begin(SSD1306_SWITCHCAPVCC, 0x3C);
+
+  display.clearDisplay();
+  display.display();
+
+}
+
+void loop() {
+
+  bool movimiento = digitalRead(pir);
+
+  // Detectar flanco ascendente
+  if(movimiento == HIGH && movimientoAnterior == LOW) {
+
+    // Encender bombillo
+    digitalWrite(rele, HIGH);
+
+    // Animación OLED
+    display.clearDisplay();
+
+    display.setTextSize(1);
+    display.setTextColor(WHITE);
+
+    display.setCursor(15,0);
+    display.println("Bombillo ON");
+
+    // Dibujar bombillo
+    display.drawCircle(64, 25, 12, WHITE);
+    display.drawLine(64, 37, 64, 50, WHITE);
+
+    // Rayos de luz
+    display.drawLine(50, 15, 45, 10, WHITE);
+    display.drawLine(78, 15, 83, 10, WHITE);
+    display.drawLine(64, 5, 64, 0, WHITE);
+
+    display.display();
+
+    // Tiempo encendido: 2 minutos
+    delay(120000);
+
+    // Apagar bombillo
+    digitalWrite(rele, LOW);
+
+    // Limpiar pantalla
+    display.clearDisplay();
+
+    display.setCursor(20,25);
+    display.println("Bombillo OFF");
+
+    display.display();
+
+  }
+
+  movimientoAnterior = movimiento;
+
+}

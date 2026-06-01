@@ -1,0 +1,41 @@
+int sensorGas = A0;
+int buzzer = 8;
+
+int valorGas = 0;
+
+void setup() {
+
+  pinMode(buzzer, OUTPUT);
+
+  Serial.begin(9600);
+
+}
+
+void loop() {
+
+  // Leer sensor MQ5
+  valorGas = analogRead(sensorGas);
+
+  Serial.print("Nivel de gas: ");
+  Serial.println(valorGas);
+
+  // Condición de alarma
+  if(valorGas > 400) {
+
+    digitalWrite(buzzer, HIGH);
+
+    Serial.println("ALERTA: Gas detectado");
+
+  }
+
+  else {
+
+    digitalWrite(buzzer, LOW);
+
+    Serial.println("Ambiente seguro");
+
+  }
+
+  delay(500);
+
+}

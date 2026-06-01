@@ -1,0 +1,29 @@
+int motor = 9;
+
+void setup() {
+
+  pinMode(motor, OUTPUT);
+
+}
+
+void loop() {
+
+  // Aumenta velocidad
+  for(int velocidad = 0; velocidad <= 255; velocidad++) {
+
+    analogWrite(motor, velocidad);
+
+    delay(20);
+
+  }
+
+  // Disminuye velocidad
+  for(int velocidad = 255; velocidad >= 0; velocidad--) {
+
+    analogWrite(motor, velocidad);
+
+    delay(20);
+
+  }
+
+}

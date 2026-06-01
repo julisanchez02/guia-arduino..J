@@ -1,0 +1,42 @@
+#include <LiquidCrystal.h>
+
+// Pines de conexión LCD
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+
+String nombre = "Maria Munoz";
+
+void setup() {
+
+  lcd.begin(16, 2);
+
+}
+
+void loop() {
+
+  // Animación izquierda a derecha
+  for(int i = 0; i <= 15; i++) {
+
+    lcd.clear();
+
+    lcd.setCursor(i, 0);
+
+    lcd.print(nombre);
+
+    delay(300);
+
+  }
+
+  // Animación derecha a izquierda
+  for(int i = 15; i >= 0; i--) {
+
+    lcd.clear();
+
+    lcd.setCursor(i, 0);
+
+    lcd.print(nombre);
+
+    delay(300);
+
+  }
+
+}

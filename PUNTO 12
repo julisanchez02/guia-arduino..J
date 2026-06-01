@@ -1,0 +1,52 @@
+#include <Servo.h>
+
+Servo motor;
+
+int ldr = A0;
+int valorLDR = 0;
+
+void setup() {
+
+  motor.attach(9);
+
+  Serial.begin(9600);
+
+}
+
+void loop() {
+
+  valorLDR = analogRead(ldr);
+
+  Serial.print("Valor LDR: ");
+  Serial.println(valorLDR);
+
+  // Mucha luz -> Día
+  if(valorLDR > 700) {
+
+    motor.write(180);
+
+    Serial.println("Fase: DIA");
+
+  }
+
+  // Luz media -> Atardecer
+  else if(valorLDR > 300 && valorLDR <= 700) {
+
+    motor.write(90);
+
+    Serial.println("Fase: ATARDECER");
+
+  }
+
+  // Poca luz -> Noche
+  else {
+
+    motor.write(0);
+
+    Serial.println("Fase: NOCHE");
+
+  }
+
+  delay(500);
+
+}

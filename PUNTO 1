@@ -1,0 +1,17 @@
+// C++ code
+//
+int tiempo=300; //variable tiempo
+int led=7;
+
+void setup()
+{
+  pinMode(led, OUTPUT);
+}
+
+void loop()
+{
+  digitalWrite(led, HIGH);
+  delay(tiempo); // Wait for x millisecond(s)
+  digitalWrite(led, LOW);
+  delay(tiempo); // Wait for x millisecond(s)
+} 

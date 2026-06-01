@@ -1,0 +1,33 @@
+int boton = 2;
+int led = 8;
+
+bool estadoLed = false;
+bool estadoBoton;
+bool ultimoEstadoBoton = LOW;
+
+void setup() {
+
+  pinMode(led, OUTPUT);
+  pinMode(boton, INPUT);
+
+}
+
+void loop() {
+
+  estadoBoton = digitalRead(boton);
+
+  // Detectar cambio de estado
+  if(estadoBoton == HIGH && ultimoEstadoBoton == LOW) {
+
+    // Cambiar estado del LED
+    estadoLed = !estadoLed;
+
+    digitalWrite(led, estadoLed);
+
+    delay(200); // Anti-rebote
+
+  }
+
+  ultimoEstadoBoton = estadoBoton;
+
+}
